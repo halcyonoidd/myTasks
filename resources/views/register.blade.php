@@ -13,9 +13,13 @@
             <div class="w-1 bg-gray-200 self-stretch"></div>
 
             <div class="text-left flex-1 flex flex-col justify-center">
+            @if (session('status'))
+                <div class="msg" style="background:#e7f6ef;color:#0f5132;">{{ session('status') }}</div>
+            @endif
                 <h1 class="text-4xl font-bold mb-4">Register</h1>
                 <p class="text-gray-700 mb-6">Create a new account to manage your tasks.</p>
-                <form>
+                <form method="POST" action="{{ route('register.post') }}">
+                    @csrf
                     <div class="mb-4">
                         <label class="block text-gray-700 mb-2" for="name">Name</label>
                         <input class="w-full px-3 py-2 border rounded" type="text" id="name" name="name" required>
@@ -33,6 +37,11 @@
                         <input class="w-full px-3 py-2 border rounded" type="password" id="password_confirmation" name="password_confirmation" required>
                     </div>
                     <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600" type="submit">Register</button>
+
+                    <div class="mt-4">
+                        <span>Already have an account?</span>
+                        <a href="{{ route('login') }}" class="text-blue-500 hover:underline">Login</a>
+                    </div>
                 </form>
             </div>
         </div>
