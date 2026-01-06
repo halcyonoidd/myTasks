@@ -6,9 +6,10 @@
 </head>
 
 <body>
-    <!-- buat halaman landing sederhana, berbeda dengan login dan register -->
-    <div class = "bg-blue-200 flex items-center justify-center min-h-screen">
-        <div class="bg-white p-16 rounded shadow-md w-full max-w-6xl">
+    <!-- buat bg nya gelap -->
+    <div class = "flex items-center justify-center min-h-screen bg-gray-900">
+        <!-- tema gelap -->
+        <div class="p-16 rounded shadow-md w-full max-w-6xl bg-gray-200">
             <div class="flex items-stretch gap-6">
                 <div class="text-left flex-1 flex flex-col justify-center">
                     <h1 class="text-4xl font-bold mb-4">Welcome to My Tasks</h1>
