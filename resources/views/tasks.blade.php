@@ -1,0 +1,261 @@
+@extends('layouts.app', ['title' => 'Tasks - My Tasks'])
+
+@section('content')
+<div id="editModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4 transition-opacity duration-300">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full transform transition-all duration-300 scale-95 opacity-0" id="editModalContent">
+        <div class="px-6 py-4 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
+            <h3 class="text-xl font-bold text-gray-900">Edit Task</h3>
+            <button onclick="closeEditModal()" class="text-gray-400 hover:text-gray-600 transition">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+        <form id="editForm" method="POST" class="p-6">
+            @csrf
+            @method('PUT')
+            <div class="grid md:grid-cols-2 gap-4 text-sm">
+                <div>
+                    <label class="block text-slate-700 mb-1">Title</label>
+                    <input id="editTitle" name="title" class="w-full rounded-lg border border-slate-200 px-3 py-2" required>
+                </div>
+                <div>
+                    <label class="block text-slate-700 mb-1">Status</label>
+                    <select id="editStatus" name="status" class="w-full rounded-lg border border-slate-200 px-3 py-2">
+                        <option value="pending">Pending</option>
+                        <option value="in_progress">In Progress</option>
+                        <option value="done">Done</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-slate-700 mb-1">Priority (1-5)</label>
+                    <input id="editPriority" type="number" min="1" max="5" name="priority" value="3" class="w-full rounded-lg border border-slate-200 px-3 py-2">
+                </div>
+                <div>
+                    <label class="block text-slate-700 mb-1">Due date</label>
+                    <input id="editDueDate" type="date" name="due_date" class="w-full rounded-lg border border-slate-200 px-3 py-2">
+                </div>
+                <div class="md:col-span-2">
+                    <label class="block text-slate-700 mb-1">Description</label>
+                    <textarea id="editDescription" name="description" rows="2" class="w-full rounded-lg border border-slate-200 px-3 py-2"></textarea>
+                </div>
+            </div>
+            <div class="flex gap-3 mt-6">
+                <button type="button" onclick="closeEditModal()" class="flex-1 px-4 py-2.5 bg-gray-100 text-gray-700 rounded-xl font-semibold hover:bg-gray-200 transition-all duration-200">
+                    Cancel
+                </button>
+                <button type="submit" class="flex-1 px-4 py-2.5 bg-blue-600 text-white rounded-xl font-semibold hover:bg-blue-700 transition-all duration-200 shadow-lg hover:shadow-xl">
+                    Update Task
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="deleteModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4 transition-opacity duration-300">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full transform transition-all duration-300 scale-95 opacity-0" id="modalContent">
+        <div class="p-6">
+            <div class="flex items-center justify-center w-16 h-16 mx-auto mb-4 bg-red-100 rounded-full">
+                <svg class="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                </svg>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 text-center mb-2">Delete Task?</h3>
+            <p class="text-gray-600 text-center mb-6">Are you sure you want to delete this task? This action cannot be undone.</p>
+            <div class="flex gap-3">
+                <button onclick="closeDeleteModal()" class="flex-1 px-4 py-2.5 bg-gray-100 text-gray-700 rounded-xl font-semibold hover:bg-gray-200 transition-all duration-200 transform hover:scale-105">
+                    Cancel
+                </button>
+                <button onclick="confirmDelete()" class="flex-1 px-4 py-2.5 bg-red-600 text-white rounded-xl font-semibold hover:bg-red-700 transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl">
+                    Delete
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="flex items-center justify-between mb-6">
+    <div>
+        <p class="text-sm text-slate-500 text-white">Dashboard / Tasks</p>
+        <h1 class="text-2xl font-semibold text-white">Tasks</h1>
+    </div>
+</div>
+
+<div class="bg-white rounded-2xl shadow-md border border-slate-100 overflow-hidden">
+    <div class="px-6 py-4 bg-slate-50 border-b border-slate-200">
+        <h2 class="text-lg font-semibold text-slate-800">Add New Task</h2>
+    </div>
+    <div class="px-6 py-6">
+        <form method="POST" action="{{ route('tasks.store') }}" class="grid md:grid-cols-2 gap-4 text-sm">
+            @csrf
+            <div>
+                <label class="block text-slate-700 mb-1">Title</label>
+                <input name="title" class="w-full rounded-lg border border-slate-200 px-3 py-2" required>
+            </div>
+            <div>
+                <label class="block text-slate-700 mb-1">Status</label>
+                <select name="status" class="w-full rounded-lg border border-slate-200 px-3 py-2">
+                    <option value="pending">Pending</option>
+                    <option value="in_progress">In Progress</option>
+                    <option value="done">Done</option>
+                </select>
+            </div>
+            <div>
+                <label class="block text-slate-700 mb-1">Priority (1-5)</label>
+                <input type="number" min="1" max="5" name="priority" value="3" class="w-full rounded-lg border border-slate-200 px-3 py-2">
+            </div>
+            <div>
+                <label class="block text-slate-700 mb-1">Due date</label>
+                <input type="date" name="due_date" class="w-full rounded-lg border border-slate-200 px-3 py-2">
+            </div>
+            <div class="md:col-span-2">
+                <label class="block text-slate-700 mb-1">Description</label>
+                <textarea name="description" rows="2" class="w-full rounded-lg border border-slate-200 px-3 py-2"></textarea>
+            </div>
+            <div class="md:col-span-2 flex justify-end">
+                <button class="px-4 py-2 bg-gray-900 text-gray-200 rounded-lg hover:bg-blue-600 hover:text-gray-200 transition" type="submit">Save Task</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="mt-6 bg-white rounded-2xl shadow-md border border-slate-100 overflow-hidden">
+    <div class="px-6 py-4 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
+        <h2 class="text-lg font-semibold text-slate-800">Task List</h2>
+        <span class="text-sm text-slate-500">Total: {{ $tasks?->total() ?? 0 }}</span>
+    </div>
+    <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-slate-200 text-sm">
+            <thead class="bg-slate-50 text-slate-600">
+                <tr>
+                    <th class="px-6 py-3 text-left font-semibold">Title</th>
+                    <th class="px-6 py-3 text-left font-semibold">Status</th>
+                    <th class="px-6 py-3 text-left font-semibold">Priority</th>
+                    <th class="px-6 py-3 text-left font-semibold">Due Date</th>
+                    <th class="px-6 py-3 text-left font-semibold">Updated</th>
+                    <th class="px-6 py-3 text-left font-semibold">Action</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+                @forelse($tasks as $task)
+                    <tr class="hover:bg-slate-50/70">
+                        <td class="px-6 py-3">
+                            <div class="font-semibold text-slate-800">{{ $task->title }}</div>
+                            @if($task->description)
+                                <div class="text-xs text-slate-500 line-clamp-2">{{ $task->description }}</div>
+                            @endif
+                        </td>
+                        <td class="px-6 py-3">
+                            <span class="px-2 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-700">{{ ucfirst($task->status) }}</span>
+                        </td>
+                        <td class="px-6 py-3 text-slate-700">{{ $task->priority }}</td>
+                        <td class="px-6 py-3 text-slate-700">{{ $task->due_date ? $task->due_date->format('d M Y') : '-' }}</td>
+                        <td class="px-6 py-3 text-slate-500 text-xs">{{ $task->updated_at->format('d M Y H:i') }}</td>
+                        <td class="px-6 py-3">
+                            <div class="flex gap-2">
+                                <button type="button" onclick='openEditModal(@json($task))' class="text-xs px-2 py-1 rounded bg-blue-100 text-blue-700 hover:bg-blue-200 transition">Edit</button>
+                                <form method="POST" action="{{ route('tasks.delete', $task->id) }}" id="deleteForm{{ $task->id }}" style="display: inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="button" onclick="openDeleteModal({{ $task->id }})" class="text-xs px-2 py-1 rounded bg-red-100 text-red-700 hover:bg-red-200 transition">Delete</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="6" class="px-6 py-6 text-center text-slate-500">No tasks yet.</td>
+                    </tr>
+                @endforelse
+            </tbody>
+        </table>
+    </div>
+    @if($tasks && $tasks->hasPages())
+        <div class="px-6 py-4 border-t border-slate-100">{{ $tasks->links() }}</div>
+    @endif
+</div>
+
+<script>
+let currentDeleteFormId = null;
+
+function openEditModal(task) {
+    document.getElementById('editTitle').value = task.title || '';
+    document.getElementById('editStatus').value = task.status || 'pending';
+    document.getElementById('editPriority').value = task.priority || 3;
+    document.getElementById('editDueDate').value = task.due_date || '';
+    document.getElementById('editDescription').value = task.description || '';
+    document.getElementById('editForm').action = '/tasks/' + task.id;
+    
+    const modal = document.getElementById('editModal');
+    const modalContent = document.getElementById('editModalContent');
+    
+    modal.classList.remove('hidden');
+    setTimeout(() => {
+        modalContent.classList.remove('scale-95', 'opacity-0');
+        modalContent.classList.add('scale-100', 'opacity-100');
+    }, 10);
+}
+
+function closeEditModal() {
+    const modal = document.getElementById('editModal');
+    const modalContent = document.getElementById('editModalContent');
+    
+    modalContent.classList.remove('scale-100', 'opacity-100');
+    modalContent.classList.add('scale-95', 'opacity-0');
+    
+    setTimeout(() => {
+        modal.classList.add('hidden');
+    }, 300);
+}
+
+function openDeleteModal(taskId) {
+    currentDeleteFormId = 'deleteForm' + taskId;
+    const modal = document.getElementById('deleteModal');
+    const modalContent = document.getElementById('modalContent');
+    
+    modal.classList.remove('hidden');
+    setTimeout(() => {
+        modalContent.classList.remove('scale-95', 'opacity-0');
+        modalContent.classList.add('scale-100', 'opacity-100');
+    }, 10);
+}
+
+function closeDeleteModal() {
+    const modal = document.getElementById('deleteModal');
+    const modalContent = document.getElementById('modalContent');
+    
+    modalContent.classList.remove('scale-100', 'opacity-100');
+    modalContent.classList.add('scale-95', 'opacity-0');
+    
+    setTimeout(() => {
+        modal.classList.add('hidden');
+        currentDeleteFormId = null;
+    }, 300);
+}
+
+function confirmDelete() {
+    if (currentDeleteFormId) {
+        document.getElementById(currentDeleteFormId).submit();
+    }
+}
+
+document.getElementById('deleteModal')?.addEventListener('click', function(e) {
+    if (e.target === this) {
+        closeDeleteModal();
+    }
+});
+
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeDeleteModal();
+        closeEditModal();
+    }
+});
+
+document.getElementById('editModal')?.addEventListener('click', function(e) {
+    if (e.target === this) {
+        closeEditModal();
+    }
+});
+</script>
+@endsection

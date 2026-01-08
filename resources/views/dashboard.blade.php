@@ -1,51 +1,52 @@
-<!DOCTYPE html>
-<head>
-    <title>Dashboard - My Tasks</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-</head>
+@extends('layouts.app', ['title' => 'Dashboard - My Tasks'])
 
-<body>
-<div class="min-h-screen bg-gradient-to-br bg-gray-200 text-slate-800">
-    <div class="flex min-h-screen">
-        <!-- Sidebar -->
-        <aside class="hidden lg:flex w-72 flex-col bg-white backdrop-blur border-r border-sky-100 shadow-md">
-            <div class="px-8 py-10">
-                <div class="flex items-center gap-4 mb-6">
-                    <div>
-                        <h2 class="text-lg font-semibold">Your Name</h2>
-                        <p class="text-sm text-slate-500">youremail@example.com</p>
-                    </div>
-                </div>
-
-                <nav class="space-y-2 bg-sky-100 rounded-xl p-4">
-                    <a href="{{ route('dashboard') }}" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-700 bg-white shadow-sm border border-sky-50">
-                        <span class="h-2 w-2 rounded-full bg-sky-500"></span>
-                        <span>Dashboard</span>
-                    </a>
-                    <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-700 hover:text-sky-700 hover:bg-sky-50 transition hover:span:bg-sky-500 ">
-                        <span class="h-2 w-2 rounded-full bg-slate-400"></span>
-                        <span>My Tasks</span>
-                    </a>
-                    <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-700 hover:text-sky-700 hover:bg-sky-50 transition">
-                        <span class="h-2 w-2 rounded-full bg-slate-400"></span>
-                        <span>My Notes</span>
-                    </a>
-                    <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-700 hover:text-sky-700 hover:bg-sky-50 transition">
-                        <span class="h-2 w-2 rounded-full bg-slate-400"></span>
-                        <span>My Wishlist</span>
-                    </a>
-                </nav>
-
-                <div class="mt-10 pt-10 border-t border-sky-100">
-                    <form method="POST" action="{{ route('logout') }}" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-700 hover:text-red-600 hover:bg-red-50 transition">
-                        @csrf
-                        <button type="submit" class="w-full text-left">
-                            Logout
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </aside>
+@section('content')
+@php($counts = [
+    'tasks' => method_exists(auth()->user(), 'tasks') ? auth()->user()->tasks()->count() : 0,
+    'notes' => method_exists(auth()->user(), 'notes') ? auth()->user()->notes()->count() : 0,
+    'wishlist' => method_exists(auth()->user(), 'wishlistItems') ? auth()->user()->wishlistItems()->count() : 0,
+])
+<header class="flex items-center justify-between">
+    <div>
+        <p class="text-sm text-white">Welcome back</p>
+        <h1 class="text-2xl font-semibold text-white">Overview</h1>
     </div>
-</div>
-        
+    <div class="text-sm text-slate-500">Last update: {{ now()->format('d M Y, H:i') }}</div>
+</header>
+
+<section class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div class="rounded-2xl border border-slate-100 bg-white shadow-sm hover:shadow-md transition p-5">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-sm text-slate-500">Tasks</p>
+                <p class="text-3xl font-semibold text-slate-900">{{ $counts['tasks'] }}</p>
+            </div>
+            <span class="h-10 w-10 rounded-xl bg-sky-100 text-sky-600 flex items-center justify-center font-semibold">T</span>
+        </div>
+        <p class="mt-3 text-sm text-slate-500">Total tasks associated with your account.</p>
+    </div>
+
+    <div class="rounded-2xl border border-slate-100 bg-white shadow-sm hover:shadow-md transition p-5">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-sm text-slate-500">Notes</p>
+                <p class="text-3xl font-semibold text-slate-900">{{ $counts['notes'] }}</p>
+            </div>
+            <span class="h-10 w-10 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center font-semibold">N</span>
+        </div>
+        <p class="mt-3 text-sm text-slate-500">Notes you have saved.</p>
+    </div>
+
+    <div class="rounded-2xl border border-slate-100 bg-white shadow-sm hover:shadow-md transition p-5">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-sm text-slate-500">Wishlist</p>
+                <p class="text-3xl font-semibold text-slate-900">{{ $counts['wishlist'] }}</p>
+            </div>
+            <span class="h-10 w-10 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center font-semibold">W</span>
+        </div>
+        <p class="mt-3 text-sm text-slate-500">Wishlist items you have saved.</p>
+    </div>
+</section>
+@endsection
+                    </a>
