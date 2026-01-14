@@ -1,88 +1,70 @@
-# myTasks
+myTasks adalah aplikasi manajemen tugas sederhana yang dibangun menggunakan Laravel. Aplikasi ini memungkinkan pengguna untuk membuat, mengelola, dan melacak tugas-tugas mereka.
 
-**myTasks** adalah aplikasi web sederhana untuk manajemen produktivitas pribadi. Aplikasi ini membantu pengguna mengatur tugas harian, menyimpan catatan penting, dan melacak daftar keinginan (wishlist) dalam satu platform yang terpusat.
+## Fitur
 
-## 🌟 Fitur Utama
+- Membuat dan mengelola daftar tugas
+- Menandai tugas sebagai selesai
+- Menghapus tugas
+- Interface yang sederhana dan mudah digunakan
 
-* **Autentikasi Pengguna:** Sistem Login dan Registrasi yang aman.
-* **Manajemen Tugas (Tasks):** Membuat, membaca, memperbarui, dan menghapus daftar tugas harian.
-* **Catatan (Notes):** Menyimpan dan mengelola catatan teks sederhana.
-* **Daftar Keinginan (Wishlist):** Mengelola daftar barang atau hal yang diinginkan.
-* **Dashboard:** Ringkasan aktivitas pengguna.
+## Teknologi
 
-## 🛠️ Teknologi
+- PHP
+- Laravel Framework
+- Blade Template Engine
+- MySQL/Database
 
-* **Backend:** [Laravel](https://laravel.com)
-* **Frontend:** Blade Templates, JavaScript
-* **Asset Bundler:** Vite
-* **Database:** PostgreSQL
+## Cara Menjalankan
 
-## 🚀 Cara Instalasi
+### Persyaratan
 
-Ikuti langkah-langkah berikut untuk menjalankan proyek di komputer lokal Anda:
-
-### Prasyarat
-* PHP & Composer
-* Node.js & NPM
-* MySQL
+- PHP >= 8.0
+- Composer
+- MySQL atau database lainnya
+- Node.js & NPM (opsional, untuk assets)
 
 ### Langkah Instalasi
 
-1.  **Clone Repositori**
-    ```bash
-    git clone [https://github.com/username-anda/mytasks.git](https://github.com/username-anda/mytasks.git)
-    cd mytasks
-    ```
+1. Clone repository ini
+```bash
+git clone https://github.com/halcyonoidd/myTasks.git
+cd myTasks
+```
 
-2.  **Instal Dependensi**
-    ```bash
-    composer install
-    npm install
-    ```
+2. Install dependencies
+```bash
+composer install
+```
 
-3.  **Konfigurasi Environment**
-    Salin file contoh konfigurasi:
-    ```bash
-    cp .env.example .env
-    ```
-    Buka file `.env` dan atur koneksi database Anda:
-    ```env
-    DB_CONNECTION=mysql
-    DB_HOST=127.0.0.1
-    DB_PORT=3306
-    DB_DATABASE=mytasks
-    DB_USERNAME=root
-    DB_PASSWORD=
-    ```
+3. Salin file environment
+```bash
+cp .env.example .env
+```
 
-4.  **Generate Key & Migrasi Database**
-    ```bash
-    php artisan key:generate
-    php artisan migrate
-    ```
+4. Generate application key
+```bash
+php artisan key:generate
+```
 
-5.  **Jalankan Aplikasi**
-    Jalankan server Laravel dan Vite di dua terminal terpisah:
+5. Konfigurasi database di file `.env`
+```
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=mytasks
+DB_USERNAME=root
+DB_PASSWORD=
+```
 
-    * Terminal 1:
-        ```bash
-        php artisan serve
-        ```
-    * Terminal 2:
-        ```bash
-        npm run dev
-        ```
+6. Jalankan migrasi database
+```bash
+php artisan migrate
+```
 
-6.  **Selesai**
-    Buka `http://127.0.0.1:8000` di browser Anda.
+7. Jalankan aplikasi
+```bash
+php artisan serve
+```
 
-## 📂 Struktur Folder
-
-* `app/Models` - Model data (Task, Note, WishlistItem).
-* `app/Http/Controllers` - Logika kontroler.
-* `resources/views` - Halaman antarmuka (Blade).
-* `routes/web.php` - Rute aplikasi.
-
-## 📄 Lisensi
-
-[MIT License](https://opensource.org/licenses/MIT).
+8. Buka browser dan akses `http://localhost:8000`
+>>>>>>> e250609059dbfa1c300b7351becd0371754bd2f4
