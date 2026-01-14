@@ -6,12 +6,16 @@
     'notes' => method_exists(auth()->user(), 'notes') ? auth()->user()->notes()->count() : 0,
     'wishlist' => method_exists(auth()->user(), 'wishlistItems') ? auth()->user()->wishlistItems()->count() : 0,
 ])
-<header class="flex items-center justify-between">
-    <div>
-        <p class="text-sm text-white">Welcome back</p>
-        <h1 class="text-2xl font-semibold text-white">Overview</h1>
-    </div>
-    <div class="text-sm text-slate-500">Last update: {{ now()->format('d M Y, H:i') }}</div>
+<header>
+    <section class="bg-blue">
+        <div class="bg-blue-600 px-6 py-4 rounded-2xl shadow-md">
+            <p class="text-sm text-white">Hello {{ auth()->user()->name ?? 'User' }}</p>
+            <h1 class="text-2xl font-semibold text-white">Welcome To My Tasks!</h1>
+
+            <div class="text-sm text-white text-right">Last update: {{ now()->format('d M Y, H:i') }}</div>
+        </div>
+        
+    </section>
 </header>
 
 <section class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">

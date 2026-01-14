@@ -3,65 +3,21 @@
 <head>
     <title>Welcome to My Tasks</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <style>
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes slideInRight {
-            from {
-                opacity: 0;
-                transform: translateX(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0px);
-            }
-            50% {
-                transform: translateY(-10px);
-            }
-        }
-
-        .animate-fade-in-up {
-            animation: fadeInUp 0.8s ease-out;
-        }
-
-        .animate-slide-in-right {
-            animation: slideInRight 1s ease-out;
-        }
-
-        .animate-float {
-            animation: float 3s ease-in-out infinite;
-        }
-    </style>
 </head>
 
 <body>
-    <div class="flex items-center justify-center min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
-        <div class="p-8 md:p-16 rounded-3xl shadow-2xl w-full max-w-6xl bg-gradient-to-br from-gray-100 via-gray-200 to-gray-100 border border-gray-300 animate-fade-in-up">
-            <div class="flex flex-col md:flex-row items-stretch gap-6 md:gap-12">
-                <div class="text-left flex-1 flex flex-col justify-center space-y-6">
+    <div class="bg-gray-900 flex items-center justify-center min-h-screen">
+        <div class="p-8 md:p-16 shadow-2xl w-full bg-gray-900 border border-gray-300 min-h-screen">
+            <div class="flex flex-col md:flex-row items-stretch gap-6 md:gap-12 max-w-7xl mx-auto">
+                <div class="text-left flex-1 flex flex-col justify-center space-y-6 md:space-y-8">
                     <div class="space-y-3" style="animation: fadeInUp 0.8s ease-out 0.2s both;">
-                        <h1 class="text-5xl md:text-6xl font-bold text-gray-900 leading-tight">
+                        <h1 class="text-5xl md:text-6xl font-bold text-gray-200 leading-tight">
                             Welcome to <span class="text-blue-600">My Tasks</span>
                         </h1>
                         <div class="h-1 w-24 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full"></div>
                     </div>
 
-                    <p class="text-lg text-gray-700 leading-relaxed" style="animation: fadeInUp 0.8s ease-out 0.3s both;">
+                    <p class="text-lg text-gray-200 leading-relaxed" style="animation: fadeInUp 0.8s ease-out 0.3s both;">
                         Your personal task management application designed to help you organize, track, and achieve your goals efficiently.
                     </p>
 
@@ -72,7 +28,7 @@
                             </svg>
                             <span>Login</span>
                         </a>
-                        <a href="/register" class="group relative inline-flex items-center gap-2 border-2 border-blue-500 text-blue-600 px-8 py-3 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl hover:bg-blue-50 transition-all duration-300 transform hover:-translate-y-1">
+                        <a href="/register" class="group relative inline-flex items-center gap-2 border-2 border-blue-500 text-gray-200 px-8 py-3 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl hover:bg-blue-50 hover:text-blue-600 transition-all duration-300 transform hover:-translate-y-1">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path>
                             </svg>
@@ -81,7 +37,7 @@
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-6" style="animation: fadeInUp 0.8s ease-out 0.5s both;">
-                        <div class="flex items-center gap-3 p-4 rounded-xl bg-white bg-opacity-60 hover:bg-opacity-100 shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer transform hover:scale-105">
+                        <div class="flex items-center gap-3 p-4 rounded-xl bg-gray-200 hover:bg-opacity-100 shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer transform hover:scale-105">
                             <div class="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center shadow-md">
                                 <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
@@ -93,7 +49,7 @@
                             </div>
                         </div>
 
-                        <div class="flex items-center gap-3 p-4 rounded-xl bg-white bg-opacity-60 hover:bg-opacity-100 shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer transform hover:scale-105">
+                        <div class="flex items-center gap-3 p-4 rounded-xl bg-gray-200 hover:bg-opacity-100 shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer transform hover:scale-105">
                             <div class="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center shadow-md">
                                 <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
@@ -105,7 +61,7 @@
                             </div>
                         </div>
 
-                        <div class="flex items-center gap-3 p-4 rounded-xl bg-white bg-opacity-60 hover:bg-opacity-100 shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer transform hover:scale-105">
+                        <div class="flex items-center gap-3 p-4 rounded-xl bg-gray-200 hover:bg-opacity-100 shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer transform hover:scale-105">
                             <div class="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center shadow-md">
                                 <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
@@ -117,7 +73,7 @@
                             </div>
                         </div>
 
-                        <div class="flex items-center gap-3 p-4 rounded-xl bg-white bg-opacity-60 hover:bg-opacity-100 shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer transform hover:scale-105">
+                        <div class="flex items-center gap-3 p-4 rounded-xl bg-gray-200 hover:bg-opacity-100 shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer transform hover:scale-105">
                             <div class="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center shadow-md">
                                 <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>

@@ -74,11 +74,15 @@
     </div>
 </div>
 
-<div class="flex items-center justify-between mb-6">
-    <div>
-        <p class="text-sm text-slate-500 text-white">Dashboard / Tasks</p>
-        <h1 class="text-2xl font-semibold text-white">Tasks</h1>
-    </div>
+<div class="mb-8">
+    <section class="bg-blue">
+            <div class="bg-blue-600 px-6 py-4 rounded-2xl shadow-md">
+                <p class="text-sm text-white">Dashboard/Tasks</p>
+                <h1 class="text-2xl font-semibold text-white">Set Your Tasks Here!</h1>
+                
+                <div class="text-sm text-white text-right">Last update: {{ now()->format('d M Y, H:i') }}</div>
+            </div>
+    </section>
 </div>
 
 <div class="bg-white rounded-2xl shadow-md border border-slate-100 overflow-hidden">
