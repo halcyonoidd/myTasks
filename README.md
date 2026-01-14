@@ -67,4 +67,3 @@ php artisan serve
 ```
 
 8. Buka browser dan akses `http://localhost:8000`
->>>>>>> e250609059dbfa1c300b7351becd0371754bd2f4
